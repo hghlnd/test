@@ -23,20 +23,22 @@
       <h1>Check Your Pockets</h1>
     </div>
 
-    <p class="subtitle">Keep track of your items and their last known location.</p>
+    <p class="subtitle">
+      Keep track of your items and their last known location.
+    </p>
 
-    <!-- Add Item Section -->
+    <!-- Add Item -->
     <div class="card">
       <input 
         type="text" 
         id="itemName" 
-        placeholder="Item name (e.g., Wallet)" 
+        placeholder="Item name (e.g., Wallet)"
       />
 
       <input 
         type="text" 
         id="itemLocation" 
-        placeholder="Last location (e.g., Desk drawer)" 
+        placeholder="Last location (e.g., Desk drawer)"
       />
 
       <button id="addItemButton" class="icon-btn">
@@ -55,28 +57,28 @@
         type="number" 
         id="reminderInterval" 
         min="1" 
-        value="10" 
+        value="10"
       />
 
       <button id="setReminderButton" class="icon-btn warn">
-        <img src="reminder-icon.png" class="icon" alt="Reminder" /> 
+        <img src="reminder-icon.png" class="icon" alt="Reminder" />
         Set Reminder
       </button>
     </div>
 
-    <!-- Toast Notification -->
+    <!-- Toast -->
     <div id="toast"></div>
 
   </div>
 
-  <!-- Main Script -->
   <script src="script.js"></script>
 
   <!-- Service Worker Registration -->
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js")
+        navigator.serviceWorker
+          .register("./service-worker.js")
           .then(() => console.log("Service Worker Registered"))
           .catch(err => console.error("SW registration failed:", err));
       });
