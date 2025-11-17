@@ -22,7 +22,7 @@
 
     <p class="subtitle">Keep track of your items and their last known location.</p>
 
-    <!-- Input Fields -->
+    <!-- Item Input -->
     <div class="card">
       <input type="text" id="itemName" placeholder="Item name (e.g., Wallet)" />
       <input type="text" id="itemLocation" placeholder="Last location (e.g., Desk drawer)" />
@@ -45,15 +45,19 @@
       </button>
     </div>
 
-    <!-- Toast (pop-up feedback) -->
+    <!-- Toast Message -->
     <div id="toast"></div>
   </div>
 
   <script src="script.js"></script>
 
   <script>
+    // Service Worker Registration
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./service-worker.js");
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+          .then(() => console.log("Service Worker Registered"));
+      });
     }
   </script>
 </body>
