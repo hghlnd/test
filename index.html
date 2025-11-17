@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Check Your Pockets</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#007bff" />
+  <link rel="icon" href="app-icon.png" type="image/png" />
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Brand Header -->
+    <div class="header-brand">
+      <img src="app-icon.png" class="brand-logo" alt="App Logo" />
+      <h1>Check Your Pockets</h1>
+    </div>
+
+    <p class="subtitle">Keep track of your items and their last known location.</p>
+
+    <!-- Input Fields -->
+    <div class="card">
+      <input type="text" id="itemName" placeholder="Item name (e.g., Wallet)" />
+      <input type="text" id="itemLocation" placeholder="Last location (e.g., Desk drawer)" />
+
+      <button id="addItemButton" class="icon-btn">
+        <img src="add-icon.png" class="icon" /> Add Item
+      </button>
+    </div>
+
+    <!-- Item List -->
+    <ul id="itemList"></ul>
+
+    <!-- Reminder Section -->
+    <div class="card">
+      <label for="reminderInterval">Reminder Interval (minutes):</label>
+      <input type="number" id="reminderInterval" min="1" value="10" />
+
+      <button id="setReminderButton" class="icon-btn warn">
+        <img src="reminder-icon.png" class="icon" /> Set Reminder
+      </button>
+    </div>
+
+    <!-- Toast (pop-up feedback) -->
+    <div id="toast"></div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./service-worker.js");
+    }
+  </script>
+</body>
+</html>
