@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Check Your Pockets</title>
 
+  <!-- Styles & Manifest -->
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
+
+  <!-- Theme + Favicon -->
   <meta name="theme-color" content="#007bff" />
   <link rel="icon" href="app-icon.png" type="image/png" />
 </head>
@@ -22,13 +25,22 @@
 
     <p class="subtitle">Keep track of your items and their last known location.</p>
 
-    <!-- Item Input -->
+    <!-- Add Item Section -->
     <div class="card">
-      <input type="text" id="itemName" placeholder="Item name (e.g., Wallet)" />
-      <input type="text" id="itemLocation" placeholder="Last location (e.g., Desk drawer)" />
+      <input 
+        type="text" 
+        id="itemName" 
+        placeholder="Item name (e.g., Wallet)" 
+      />
+
+      <input 
+        type="text" 
+        id="itemLocation" 
+        placeholder="Last location (e.g., Desk drawer)" 
+      />
 
       <button id="addItemButton" class="icon-btn">
-        <img src="add-icon.png" class="icon" /> Add Item
+        <img src="add-icon.png" class="icon" alt="Add" /> Add Item
       </button>
     </div>
 
@@ -38,25 +50,35 @@
     <!-- Reminder Section -->
     <div class="card">
       <label for="reminderInterval">Reminder Interval (minutes):</label>
-      <input type="number" id="reminderInterval" min="1" value="10" />
+
+      <input 
+        type="number" 
+        id="reminderInterval" 
+        min="1" 
+        value="10" 
+      />
 
       <button id="setReminderButton" class="icon-btn warn">
-        <img src="reminder-icon.png" class="icon" /> Set Reminder
+        <img src="reminder-icon.png" class="icon" alt="Reminder" /> 
+        Set Reminder
       </button>
     </div>
 
-    <!-- Toast Message -->
+    <!-- Toast Notification -->
     <div id="toast"></div>
+
   </div>
 
+  <!-- Main Script -->
   <script src="script.js"></script>
 
+  <!-- Service Worker Registration -->
   <script>
-    // Service Worker Registration
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("./service-worker.js")
-          .then(() => console.log("Service Worker Registered"));
+          .then(() => console.log("Service Worker Registered"))
+          .catch(err => console.error("SW registration failed:", err));
       });
     }
   </script>
