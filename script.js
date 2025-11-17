@@ -1,15 +1,14 @@
-// Load items from localStorage
 let items = JSON.parse(localStorage.getItem("items")) || [];
 
-// Toast system
+// Toast popup
 function showToast(msg) {
   const toast = document.getElementById("toast");
   toast.textContent = msg;
   toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 2500);
+  setTimeout(() => toast.classList.remove("show"), 2000);
 }
 
-// Initial display
+// Initial render
 document.addEventListener("DOMContentLoaded", displayItems);
 
 // Add item
@@ -28,25 +27,30 @@ document.getElementById("addItemButton").addEventListener("click", () => {
 
   document.getElementById("itemName").value = "";
   document.getElementById("itemLocation").value = "";
+
   showToast("Item added!");
 });
 
-// Display list
+// Display items
 function displayItems() {
   const list = document.getElementById("itemList");
   list.innerHTML = "";
 
   if (items.length === 0) {
-    list.innerHTML = "<li><em>No items yet.</em></li>";
+    list.innerHTML = "<li><em>No items yet</em></li>";
     return;
   }
 
   items.forEach((item, index) => {
     const li = document.createElement("li");
-    const locText = item.location ? `(${item.location})` : "(no location)`;
+
+    const locText = item.location ? ` (${item.location})` : " (no location)";
 
     li.innerHTML = `
-      <span>${index + 1}. <strong>${item.name}</strong> ${locText}</span>
+      <span class="item-info">
+        ${index + 1}. <strong>${item.name}</strong>${locText}
+      </span>
+
       <button class="delete-btn" onclick="deleteItem(${index})">
         <img src="delete-icon.png" alt="Delete" />
       </button>
@@ -57,32 +61,37 @@ function displayItems() {
 }
 
 // Delete item
-function deleteItem(index) {
-  items.splice(index, 1);
+function deleteItem(i) {
+  items.splice(i, 1);
   localStorage.setItem("items", JSON.stringify(items));
   displayItems();
   showToast("Item deleted");
 }
 
-// Reminder logic
+// Reminders
 let reminderIntervalId = null;
 
 document.getElementById("setReminderButton").addEventListener("click", () => {
   const mins = parseInt(document.getElementById("reminderInterval").value);
 
   if (isNaN(mins) || mins <= 0) {
-    showToast("Enter a valid time.");
+    showToast("Enter a valid number of minutes.");
     return;
   }
 
   if (reminderIntervalId) clearInterval(reminderIntervalId);
 
   reminderIntervalId = setInterval(() => {
+    if (items.length === 0) {
+      alert("Check your pockets!");
+      return;
+    }
+
     const listText = items
       .map(i => `${i.name}${i.location ? ` (${i.location})` : ""}`)
       .join(", ");
 
-    alert("Reminder! Check your pockets: " + listText);
+    alert("Reminder! Items: " + listText);
   }, mins * 60 * 1000);
 
   showToast("Reminder set!");
