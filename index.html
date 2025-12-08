@@ -8,8 +8,6 @@
   <!-- Styles & Manifest -->
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
-
-  <!-- Theme + Favicon -->
   <meta name="theme-color" content="#007bff" />
   <link rel="icon" href="app-icon.png" type="image/png" />
 </head>
@@ -24,65 +22,90 @@
     </div>
 
     <p class="subtitle">
-      Keep track of your items and their last known location.
+      Catalog items, remember where you left them, and get reminders to check.
     </p>
 
-    <!-- Add Item -->
+    <!-- AUTH CARD -->
+    <div class="card auth-card">
+      <h2>Sign In</h2>
+      <p class="auth-info" id="userInfo">Not signed in</p>
+
+      <input
+        type="email"
+        id="loginEmail"
+        placeholder="Email"
+        autocomplete="username"
+      />
+      <input
+        type="password"
+        id="loginPassword"
+        placeholder="Password (min 6 characters)"
+        autocomplete="current-password"
+      />
+
+      <div class="auth-buttons">
+        <button id="signupButton" class="small-btn">Create Account</button>
+        <button id="signinButton" class="small-btn">Sign In</button>
+        <button id="guestButton" class="small-btn">Continue as Guest</button>
+        <button id="signoutButton" class="small-btn danger">Sign Out</button>
+      </div>
+
+      <p class="auth-note">
+        Guest mode lets you try the app without saving data.
+      </p>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span id="statusText">Checking connection...</span>
+      <button id="syncButton" class="small-btn">Sync Now</button>
+      <span id="syncStatus"></span>
+    </div>
+
+    <!-- New Item -->
     <div class="card">
-      <input 
-        type="text" 
-        id="itemName" 
-        placeholder="Item name (e.g., Wallet)"
-      />
-
-      <input 
-        type="text" 
-        id="itemLocation" 
-        placeholder="Last location (e.g., Desk drawer)"
-      />
-
+      <h2>New Item</h2>
+      <input type="text" id="itemName" placeholder="Item name (e.g., Wallet)" />
+      <input type="text" id="itemLocation" placeholder="Last location (e.g., Desk drawer)" />
       <button id="addItemButton" class="icon-btn">
         <img src="add-icon.png" class="icon" alt="Add" /> Add Item
       </button>
     </div>
 
     <!-- Item List -->
-    <ul id="itemList"></ul>
-
-    <!-- Reminder Section -->
     <div class="card">
+      <h2>Items</h2>
+      <ul id="itemList"></ul>
+    </div>
+
+    <!-- Reminder -->
+    <div class="card">
+      <h2>Reminder</h2>
       <label for="reminderInterval">Reminder Interval (minutes):</label>
+      <input type="number" id="reminderInterval" min="1" value="10" />
 
-      <input 
-        type="number" 
-        id="reminderInterval" 
-        min="1" 
-        value="10"
-      />
-
-      <button id="setReminderButton" class="icon-btn warn">
-        <img src="reminder-icon.png" class="icon" alt="Reminder" />
-        Set Reminder
-      </button>
+      <div class="reminder-buttons">
+        <button id="setReminderButton" class="icon-btn warn">
+          <img src="reminder-icon.png" class="icon" alt="Reminder" /> Set Reminder
+        </button>
+        <button id="cancelReminderButton" class="small-btn">
+          Cancel Reminder
+        </button>
+      </div>
     </div>
 
     <!-- Toast -->
     <div id="toast"></div>
-
   </div>
 
-  <script src="script.js"></script>
+  <!-- Firebase (v8 compat CDN) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
-  <!-- Service Worker Registration -->
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("./service-worker.js")
-          .then(() => console.log("Service Worker Registered"))
-          .catch(err => console.error("SW registration failed:", err));
-      });
-    }
-  </script>
+  <!-- App Logic: NEW FILE NAME -->
+  <script src="app.js?v=1"></script>
+
+  <!-- Service worker registration temporarily removed to avoid caching issues -->
 </body>
 </html>
